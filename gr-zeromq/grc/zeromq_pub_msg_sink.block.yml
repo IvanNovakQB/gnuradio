@@ -16,6 +16,10 @@ parameters:
     dtype: bool
     default: 'True'
     hide: part
+-   id: key
+    label: Filter Key
+    dtype: string
+    default: ''
 
 inputs:
 -   domain: message
@@ -24,6 +28,6 @@ inputs:
 
 templates:
     imports: from gnuradio import zeromq
-    make: zeromq.pub_msg_sink(${address}, ${timeout}, ${bind})
-    
+    make: zeromq.pub_msg_sink(${address}, ${timeout}, ${bind}, ${key})
+
 file_format: 1

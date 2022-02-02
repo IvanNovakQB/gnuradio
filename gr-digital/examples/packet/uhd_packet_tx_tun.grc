@@ -24,6 +24,9 @@ options:
     title: ''
     window_size: 2000,2000
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [8, 11]
     rotation: 0
     state: enabled
@@ -41,6 +44,9 @@ blocks:
     sym_map: digital.psk_2()[1]
     type: calcdist
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [240, 11]
     rotation: 0
     state: enabled
@@ -56,6 +62,9 @@ blocks:
     sym_map: digital.psk_2()[1]
     type: calcdist
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [400, 11]
     rotation: 0
     state: enabled
@@ -71,6 +80,9 @@ blocks:
     sym_map: digital.psk_4()[1]
     type: calcdist
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [560, 11]
     rotation: 0
     state: disabled
@@ -89,6 +101,9 @@ blocks:
     value: '0.5'
     widget: counter_slider
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [576, 683]
     rotation: 0
     state: enabled
@@ -98,6 +113,9 @@ blocks:
     comment: ''
     value: '0.22'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [152, 75]
     rotation: 0
     state: enabled
@@ -116,6 +134,9 @@ blocks:
     rate: rate
     state_start: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [216, 467]
     rotation: 0
     state: enabled
@@ -128,6 +149,9 @@ blocks:
     framebits: '8000'
     ndim: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [16, 467]
     rotation: 0
     state: disabled
@@ -141,6 +165,9 @@ blocks:
     ndim: '0'
     rep: rep
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [16, 547]
     rotation: 0
     state: disabled
@@ -153,6 +180,9 @@ blocks:
     framebits: '8000'
     ndim: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [440, 467]
     rotation: 0
     state: enabled
@@ -171,6 +201,9 @@ blocks:
     value: 483e6-300
     widget: counter_slider
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [576, 555]
     rotation: 0
     state: enabled
@@ -189,6 +222,9 @@ blocks:
     value: '50'
     widget: counter_slider
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [448, 683]
     rotation: 0
     state: enabled
@@ -200,6 +236,9 @@ blocks:
     comment: ''
     threshold: '3'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [752, 14]
     rotation: 0
     state: disabled
@@ -210,6 +249,9 @@ blocks:
     value: digital.header_format_counter(digital.packet_utils.default_access_code,
       3, Const_PLD.bits_per_symbol())
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [752, 85]
     rotation: 0
     state: enabled
@@ -219,6 +261,9 @@ blocks:
     comment: ''
     value: '7'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [272, 651]
     rotation: 0
     state: enabled
@@ -228,6 +273,9 @@ blocks:
     comment: ''
     value: '32'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [80, 75]
     rotation: 0
     state: enabled
@@ -237,6 +285,9 @@ blocks:
     comment: ''
     value: len(tx_rrc_taps)
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1272, 11]
     rotation: 0
     state: enabled
@@ -246,6 +297,9 @@ blocks:
     comment: ''
     value: '[109, 79]'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [320, 715]
     rotation: 0
     state: enabled
@@ -255,6 +309,9 @@ blocks:
     comment: ''
     value: '2'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [344, 651]
     rotation: 0
     state: enabled
@@ -264,6 +321,9 @@ blocks:
     comment: ''
     value: '3'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [248, 715]
     rotation: 0
     state: enabled
@@ -282,6 +342,9 @@ blocks:
     value: 1000e3
     widget: counter_slider
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [448, 555]
     rotation: 0
     state: enabled
@@ -291,6 +354,9 @@ blocks:
     comment: ''
     value: '2'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [8, 75]
     rotation: 0
     state: enabled
@@ -304,6 +370,9 @@ blocks:
     samp_rate: nfilts
     sym_rate: '1.0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [944, 11]
     rotation: 0
     state: enabled
@@ -314,6 +383,9 @@ blocks:
     alias: ''
     comment: ''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [832, 296.0]
     rotation: 0
     state: enabled
@@ -329,6 +401,9 @@ blocks:
     type: complex
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [848, 212.0]
     rotation: 0
     state: enabled
@@ -345,6 +420,9 @@ blocks:
     type: complex
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1472, 275]
     rotation: 0
     state: disabled
@@ -360,9 +438,46 @@ blocks:
     minoutbuf: '0'
     mtu: '10000'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [232, 244.0]
     rotation: 0
     state: enabled
+- name: limesdr_sink_0
+  id: limesdr_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    allow_tcxo_dac: '0'
+    analog_bandw_ch0: 5e6
+    analog_bandw_ch1: 5e6
+    calibr_bandw_ch0: 2.5e6
+    calibr_bandw_ch1: 2.5e6
+    channel_mode: '0'
+    comment: ''
+    dacVal: '180'
+    digital_bandw_ch0: samp_rate
+    digital_bandw_ch1: samp_rate
+    filename: ''
+    gain_dB_ch0: '30'
+    gain_dB_ch1: '1'
+    length_tag_name: ''
+    nco_freq_ch0: '0'
+    nco_freq_ch1: '0'
+    oversample: '0'
+    pa_path_ch0: '1'
+    pa_path_ch1: '255'
+    rf_freq: 1500e6
+    samp_rate: samp_rate
+    serial: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1024, 548.0]
+    rotation: 0
+    state: true
 - name: packet_tx_0
   id: packet_tx
   parameters:
@@ -380,6 +495,9 @@ blocks:
     psf_taps: tx_rrc_taps
     sps: sps
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [456, 212.0]
     rotation: 0
     state: enabled
@@ -469,7 +587,10 @@ blocks:
     ymax: '2'
     ymin: '-2'
   states:
-    coordinate: [1264, 475]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1280, 524.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_0
@@ -546,6 +667,9 @@ blocks:
     ymax: '10'
     ymin: '-140'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1264, 395]
     rotation: 0
     state: enabled
@@ -566,16 +690,16 @@ blocks:
     alpha9: '1.0'
     autoscale: 'False'
     axislabels: 'True'
-    color1: '"blue"'
-    color10: '"blue"'
-    color2: '"red"'
-    color3: '"green"'
-    color4: '"black"'
-    color5: '"cyan"'
-    color6: '"magenta"'
-    color7: '"yellow"'
-    color8: '"dark red"'
-    color9: '"dark green"'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
     comment: ''
     ctrlpanel: 'False'
     entags: 'True'
@@ -640,6 +764,9 @@ blocks:
     ymin: '-2'
     yunit: '""'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1264, 315]
     rotation: 0
     state: enabled
@@ -671,6 +798,9 @@ blocks:
     label9: Tab 9
     num_tabs: '3'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1096, 11]
     rotation: 0
     state: enabled
@@ -931,6 +1061,7 @@ blocks:
     sd_spec6: ''
     sd_spec7: ''
     show_lo_controls: 'False'
+    start_time: '-1.0'
     stream_args: ''
     stream_chans: '[]'
     sync: sync
@@ -944,12 +1075,16 @@ blocks:
     time_source7: ''
     type: fc32
   states:
-    coordinate: [1264, 99]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1272, 100.0]
     rotation: 0
-    state: enabled
+    state: disabled
 
 connections:
 - [blocks_multiply_const_vxx_0, '0', blocks_tag_debug_0, '0']
+- [blocks_multiply_const_vxx_0, '0', limesdr_sink_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_const_sink_x_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_freq_sink_x_0, '0']
 - [blocks_multiply_const_vxx_0, '0', qtgui_time_sink_x_1, '0']

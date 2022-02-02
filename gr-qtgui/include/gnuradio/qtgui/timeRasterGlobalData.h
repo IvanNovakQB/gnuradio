@@ -27,9 +27,8 @@
 #include <qwt_raster_data.h>
 
 #if QWT_VERSION >= 0x060000
-#include <qwt_interval.h>
-
-typedef QwtInterval QwtDoubleInterval;
+#include <qwt_compat.h>
+#include <qwt_point_3d.h> // doesn't seem necessary, but is...
 #endif
 
 class TimeRasterData : public QwtRasterData
@@ -48,9 +47,6 @@ public:
 #if QWT_VERSION < 0x060000
     virtual QwtDoubleInterval range() const;
     virtual void setRange(const QwtDoubleInterval&);
-#elif QWT_VERSION >= 0x060200
-    virtual QwtInterval interval(Qt::Axis) const;
-    void setInterval(Qt::Axis, const QwtInterval&);
 #endif
 
     virtual double value(double x, double y) const;
@@ -72,10 +68,6 @@ protected:
     QwtDoubleInterval d_intensityRange;
 #else
     QwtInterval d_intensityRange;
-#endif
-
-#if QWT_VERSION >= 0x060200
-    QwtInterval d_intervals[3];
 #endif
 
 private:

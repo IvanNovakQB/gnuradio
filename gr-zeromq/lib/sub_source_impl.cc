@@ -4,20 +4,8 @@
  *
  * This file is part of GNU Radio.
  *
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -31,22 +19,32 @@
 namespace gr {
 namespace zeromq {
 
-sub_source::sptr sub_source::make(
-    size_t itemsize, size_t vlen, char* address, int timeout, bool pass_tags, int hwm)
+sub_source::sptr sub_source::make(size_t itemsize,
+                                  size_t vlen,
+                                  char* address,
+                                  int timeout,
+                                  bool pass_tags,
+                                  int hwm,
+                                  const std::string& key)
 {
     return gnuradio::get_initial_sptr(
-        new sub_source_impl(itemsize, vlen, address, timeout, pass_tags, hwm));
+        new sub_source_impl(itemsize, vlen, address, timeout, pass_tags, hwm, key));
 }
 
-sub_source_impl::sub_source_impl(
-    size_t itemsize, size_t vlen, char* address, int timeout, bool pass_tags, int hwm)
+sub_source_impl::sub_source_impl(size_t itemsize,
+                                 size_t vlen,
+                                 char* address,
+                                 int timeout,
+                                 bool pass_tags,
+                                 int hwm,
+                                 const std::string& key)
     : gr::sync_block("sub_source",
                      gr::io_signature::make(0, 0, 0),
                      gr::io_signature::make(1, 1, itemsize * vlen)),
-      base_source_impl(ZMQ_SUB, itemsize, vlen, address, timeout, pass_tags, hwm)
+      base_source_impl(ZMQ_SUB, itemsize, vlen, address, timeout, pass_tags, hwm, key)
 {
     /* Subscribe */
-    d_socket->setsockopt(ZMQ_SUBSCRIBE, "", 0);
+    d_socket.setsockopt(ZMQ_SUBSCRIBE, key.c_str(), key.size());
 }
 
 int sub_source_impl::work(int noutput_items,

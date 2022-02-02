@@ -24,6 +24,9 @@ options:
     title: ''
     window_size: ''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [8, 11]
     rotation: 0
     state: enabled
@@ -44,6 +47,9 @@ blocks:
     rate: '2'
     state_start: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [216, 211]
     rotation: 0
     state: disabled
@@ -56,6 +62,9 @@ blocks:
     framebits: '8000'
     ndim: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [16, 211]
     rotation: 0
     state: disabled
@@ -69,6 +78,9 @@ blocks:
     ndim: '0'
     rep: '3'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [16, 291]
     rotation: 0
     state: enabled
@@ -79,6 +91,9 @@ blocks:
     alias: ''
     comment: ''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [928, 56.0]
     rotation: 0
     state: enabled
@@ -93,6 +108,9 @@ blocks:
     msg: pmt.PMT_T
     period: '2000'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [24, 108.0]
     rotation: 0
     state: enabled
@@ -109,6 +127,9 @@ blocks:
     minoutbuf: '0'
     minsize: '15'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [208, 92.0]
     rotation: 0
     state: enabled
@@ -122,6 +143,9 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [432, 116.0]
     rotation: 0
     state: enabled
@@ -139,7 +163,10 @@ blocks:
     rev_pack: 'False'
     rev_unpack: 'False'
   states:
-    coordinate: [648, 172.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [624, 180.0]
     rotation: 0
     state: enabled
 

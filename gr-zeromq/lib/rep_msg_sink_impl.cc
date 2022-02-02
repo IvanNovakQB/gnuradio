@@ -4,20 +4,8 @@
  *
  * This file is part of GNU Radio.
  *
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -27,6 +15,7 @@
 #include "rep_msg_sink_impl.h"
 #include "tag_headers.h"
 #include <gnuradio/io_signature.h>
+#include <memory>
 
 namespace gr {
 namespace zeromq {
@@ -41,6 +30,8 @@ rep_msg_sink_impl::rep_msg_sink_impl(char* address, int timeout, bool bind)
                 gr::io_signature::make(0, 0, 0),
                 gr::io_signature::make(0, 0, 0)),
       d_timeout(timeout),
+      d_context(1),
+      d_socket(d_context, ZMQ_REP),
       d_port(pmt::mp("in"))
 {
     int major, minor, patch;
@@ -50,27 +41,19 @@ rep_msg_sink_impl::rep_msg_sink_impl(char* address, int timeout, bool bind)
         d_timeout = timeout * 1000;
     }
 
-    d_context = new zmq::context_t(1);
-    d_socket = new zmq::socket_t(*d_context, ZMQ_REP);
-
     int time = 0;
-    d_socket->setsockopt(ZMQ_LINGER, &time, sizeof(time));
+    d_socket.setsockopt(ZMQ_LINGER, &time, sizeof(time));
 
     if (bind) {
-        d_socket->bind(address);
+        d_socket.bind(address);
     } else {
-        d_socket->connect(address);
+        d_socket.connect(address);
     }
 
     message_port_register_in(d_port);
 }
 
-rep_msg_sink_impl::~rep_msg_sink_impl()
-{
-    d_socket->close();
-    delete d_socket;
-    delete d_context;
-}
+rep_msg_sink_impl::~rep_msg_sink_impl() {}
 
 bool rep_msg_sink_impl::start()
 {
@@ -95,7 +78,7 @@ void rep_msg_sink_impl::readloop()
 
             // wait for query...
             zmq::pollitem_t items[] = {
-                { static_cast<void*>(*d_socket), 0, ZMQ_POLLIN, 0 }
+                { static_cast<void*>(d_socket), 0, ZMQ_POLLIN, 0 }
             };
             zmq::poll(&items[0], 1, d_timeout);
 
@@ -105,10 +88,15 @@ void rep_msg_sink_impl::readloop()
                 // receive data request
                 zmq::message_t request;
 #if USE_NEW_CPPZMQ_SEND_RECV
-                d_socket->recv(request);
+                const bool ok = bool(d_socket.recv(request));
 #else
-                d_socket->recv(&request);
+                const bool ok = d_socket.recv(&request);
 #endif
+                if (!ok) {
+                    // Should not happen, we've checked POLLIN.
+                    GR_LOG_ERROR(d_logger, "Failed to receive message.");
+                    break; // Fall back to re-check d_finished
+                }
 
                 int req_output_items = *(static_cast<int*>(request.data()));
                 if (req_output_items != 1)
@@ -123,9 +111,9 @@ void rep_msg_sink_impl::readloop()
                 zmq::message_t zmsg(s.size());
                 memcpy(zmsg.data(), s.c_str(), s.size());
 #if USE_NEW_CPPZMQ_SEND_RECV
-                d_socket->send(zmsg, zmq::send_flags::none);
+                d_socket.send(zmsg, zmq::send_flags::none);
 #else
-                d_socket->send(zmsg);
+                d_socket.send(zmsg);
 #endif
             } // if req
         }     // while !empty

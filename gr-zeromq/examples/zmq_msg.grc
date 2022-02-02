@@ -24,6 +24,9 @@ options:
     title: ''
     window_size: 1280, 1024
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [10, 10]
     rotation: 0
     state: enabled
@@ -36,7 +39,10 @@ blocks:
     alias: ''
     comment: ''
   states:
-    coordinate: [944, 112]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1224, 184.0]
     rotation: 0
     state: enabled
 - name: blocks_message_strobe_random_0
@@ -52,6 +58,9 @@ blocks:
     msg: pmt.intern("TEST")
     std: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [216, 83]
     rotation: 0
     state: enabled
@@ -61,10 +70,32 @@ blocks:
     address: tcp://127.0.0.1:5555
     affinity: ''
     alias: ''
+    bind: 'True'
     comment: ''
+    key: ivana
     timeout: '100'
   states:
-    coordinate: [480, 99]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 60.0]
+    rotation: 0
+    state: enabled
+- name: zeromq_pub_msg_sink_0_0
+  id: zeromq_pub_msg_sink
+  parameters:
+    address: tcp://127.0.0.1:5555
+    affinity: ''
+    alias: ''
+    bind: 'True'
+    comment: ''
+    key: '9'
+    timeout: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [560, 588.0]
     rotation: 0
     state: disabled
 - name: zeromq_pull_msg_source_0
@@ -73,11 +104,15 @@ blocks:
     address: tcp://127.0.0.1:5556
     affinity: ''
     alias: ''
+    bind: 'False'
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     timeout: '100'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [656, 243]
     rotation: 0
     state: disabled
@@ -87,9 +122,13 @@ blocks:
     address: tcp://127.0.0.1:5556
     affinity: ''
     alias: ''
+    bind: 'True'
     comment: ''
     timeout: '100'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [480, 243]
     rotation: 0
     state: disabled
@@ -99,57 +138,76 @@ blocks:
     address: tcp://127.0.0.1:5557
     affinity: ''
     alias: ''
+    bind: 'True'
     comment: ''
     timeout: '100'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [480, 323]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: zeromq_req_msg_source_0
   id: zeromq_req_msg_source
   parameters:
     address: tcp://127.0.0.1:5557
     affinity: ''
     alias: ''
+    bind: 'False'
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     timeout: '100'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [656, 323]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: zeromq_sub_msg_source_0
   id: zeromq_sub_msg_source
   parameters:
     address: tcp://127.0.0.1:5555
     affinity: ''
     alias: ''
+    bind: 'False'
     comment: ''
+    key: ivana
     maxoutbuf: '0'
     minoutbuf: '0'
     timeout: '100'
   states:
-    coordinate: [656, 99]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [680, 60.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: zeromq_sub_msg_source_0_0
   id: zeromq_sub_msg_source
   parameters:
     address: tcp://127.0.0.1:5555
     affinity: ''
     alias: ''
+    bind: 'False'
     comment: ''
+    key: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     timeout: '100'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [656, 163]
     rotation: 0
     state: disabled
 
 connections:
 - [blocks_message_strobe_random_0, strobe, zeromq_pub_msg_sink_0, in]
+- [blocks_message_strobe_random_0, strobe, zeromq_pub_msg_sink_0_0, in]
 - [blocks_message_strobe_random_0, strobe, zeromq_push_msg_sink_0, in]
 - [blocks_message_strobe_random_0, strobe, zeromq_rep_msg_sink_0, in]
 - [zeromq_pull_msg_source_0, out, blocks_message_debug_0, print]

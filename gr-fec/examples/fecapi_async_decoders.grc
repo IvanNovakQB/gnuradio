@@ -24,6 +24,9 @@ options:
     title: ''
     window_size: 2000,2000
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [10, 10]
     rotation: 0
     state: enabled
@@ -46,6 +49,9 @@ blocks:
     state_start: '0'
     value: '"ok"'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [401, 687]
     rotation: 0
     state: enabled
@@ -59,6 +65,9 @@ blocks:
     ndim: '0'
     value: '"ok"'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [598, 636]
     rotation: 0
     state: enabled
@@ -74,6 +83,9 @@ blocks:
     rep: rep
     value: '"ok"'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [781, 651]
     rotation: 0
     state: enabled
@@ -92,6 +104,9 @@ blocks:
     rate: rate
     state_start: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [401, 510]
     rotation: 0
     state: enabled
@@ -106,6 +121,9 @@ blocks:
     ndim: '0'
     state_start: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [992, 537]
     rotation: 0
     state: enabled
@@ -118,6 +136,9 @@ blocks:
     framebits: MTU*8
     ndim: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [599, 538]
     rotation: 0
     state: enabled
@@ -131,6 +152,9 @@ blocks:
     ndim: '0'
     rep: rep
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [781, 538]
     rotation: 0
     state: enabled
@@ -140,6 +164,9 @@ blocks:
     comment: ''
     value: '7'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [264, 535]
     rotation: 0
     state: enabled
@@ -149,6 +176,9 @@ blocks:
     comment: ''
     value: '[109, 79]'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [308, 600]
     rotation: 0
     state: enabled
@@ -158,6 +188,9 @@ blocks:
     comment: ''
     value: '2'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [332, 536]
     rotation: 0
     state: enabled
@@ -167,6 +200,9 @@ blocks:
     comment: ''
     value: '3'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [785, 473]
     rotation: 0
     state: enabled
@@ -176,6 +212,9 @@ blocks:
     comment: ''
     value: '50000'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [10, 73]
     rotation: 0
     state: enabled
@@ -190,6 +229,9 @@ blocks:
     type: intx
     value: '1500'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [568, 11]
     rotation: 0
     state: enabled
@@ -207,6 +249,9 @@ blocks:
     repeat: 'True'
     type: byte
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [50, 502]
     rotation: 180
     state: disabled
@@ -221,7 +266,10 @@ blocks:
     scale: '1'
     vlen: '1'
   states:
-    coordinate: [872, 307]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 356.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_1
@@ -235,7 +283,10 @@ blocks:
     scale: '1'
     vlen: '1'
   states:
-    coordinate: [408, 375]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 372.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_1_0
@@ -249,6 +300,9 @@ blocks:
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [420, 430]
     rotation: 0
     state: enabled
@@ -259,6 +313,9 @@ blocks:
     comment: ''
     en: 'True'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [366, 10]
     rotation: 0
     state: disabled
@@ -273,7 +330,10 @@ blocks:
     tag: pkt_len
     type: byte
   states:
-    coordinate: [368, 235]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 252.0]
     rotation: 0
     state: enabled
 - name: blocks_pdu_to_tagged_stream_0_0
@@ -287,7 +347,10 @@ blocks:
     tag: pkt_len
     type: byte
   states:
-    coordinate: [872, 235]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 236.0]
     rotation: 180
     state: enabled
 - name: blocks_repack_bits_bb_0_0
@@ -304,6 +367,9 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [137, 354]
     rotation: 0
     state: enabled
@@ -320,6 +386,9 @@ blocks:
     type: byte
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [69, 281]
     rotation: 180
     state: enabled
@@ -334,7 +403,10 @@ blocks:
     tag: pkt_len
     type: byte
   states:
-    coordinate: [344, 147]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [280, 116.0]
     rotation: 0
     state: enabled
 - name: blocks_tagged_stream_to_pdu_1
@@ -348,7 +420,10 @@ blocks:
     tag: pkt_len
     type: float
   states:
-    coordinate: [601, 375]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [624, 380.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle_0
@@ -364,6 +439,9 @@ blocks:
     type: byte
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [109, 224]
     rotation: 0
     state: enabled
@@ -381,6 +459,9 @@ blocks:
     vector: (frame_size//15)*[0, 0, 1, 0, 3, 0, 7, 0, 15, 0, 31, 0, 63, 0, 127]
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [60, 140]
     rotation: 180
     state: enabled
@@ -394,6 +475,9 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [409, 311]
     rotation: 180
     state: enabled
@@ -410,6 +494,9 @@ blocks:
     packed: 'False'
     rev_pack: 'True'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [864, 139]
     rotation: 0
     state: enabled
@@ -419,7 +506,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    encoder: enc_ccsds
+    encoder: enc_cc
     maxoutbuf: '0'
     minoutbuf: '0'
     mtu: MTU
@@ -427,7 +514,10 @@ blocks:
     rev_pack: 'True'
     rev_unpack: 'True'
   states:
-    coordinate: [552, 139]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [544, 132.0]
     rotation: 0
     state: enabled
 - name: frame_size
@@ -441,6 +531,9 @@ blocks:
     type: intx
     value: '30'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [171, 11]
     rotation: 0
     state: enabled
@@ -455,6 +548,9 @@ blocks:
     type: ''
     value: '''11'''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [282, 11]
     rotation: 0
     state: enabled
@@ -475,16 +571,16 @@ blocks:
     alpha9: '1.0'
     autoscale: 'False'
     axislabels: 'True'
-    color1: '"blue"'
-    color10: '"blue"'
-    color2: '"red"'
-    color3: '"green"'
-    color4: '"black"'
-    color5: '"cyan"'
-    color6: '"magenta"'
-    color7: '"yellow"'
-    color8: '"dark red"'
-    color9: '"dark green"'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
     comment: ''
     ctrlpanel: 'False'
     entags: 'True'
@@ -549,7 +645,10 @@ blocks:
     ymin: '-0.5'
     yunit: '""'
   states:
-    coordinate: [1059, 368]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 388.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_1
@@ -569,16 +668,16 @@ blocks:
     alpha9: '1.0'
     autoscale: 'False'
     axislabels: 'True'
-    color1: '"blue"'
-    color10: '"blue"'
-    color2: '"red"'
-    color3: '"green"'
-    color4: '"black"'
-    color5: '"cyan"'
-    color6: '"magenta"'
-    color7: '"yellow"'
-    color8: '"dark red"'
-    color9: '"dark green"'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
     comment: ''
     ctrlpanel: 'False'
     entags: 'True'
@@ -643,7 +742,10 @@ blocks:
     ymin: '-1'
     yunit: '""'
   states:
-    coordinate: [639, 250]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [640, 276.0]
     rotation: 0
     state: enabled
 

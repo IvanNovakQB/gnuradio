@@ -4,20 +4,8 @@
  *
  * This file is part of GNU Radio.
  *
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -35,8 +23,18 @@ constexpr int LINGER_DEFAULT = 1000; // 1 second.
 namespace gr {
 namespace zeromq {
 
-base_impl::base_impl(int type, size_t itemsize, size_t vlen, int timeout, bool pass_tags)
-    : d_vsize(itemsize * vlen), d_timeout(timeout), d_pass_tags(pass_tags)
+base_impl::base_impl(int type,
+                     size_t itemsize,
+                     size_t vlen,
+                     int timeout,
+                     bool pass_tags,
+                     const std::string& key)
+    : d_context(1),
+      d_socket(d_context, type),
+      d_vsize(itemsize * vlen),
+      d_timeout(timeout),
+      d_pass_tags(pass_tags),
+      d_key(key)
 {
     /* "Fix" timeout value (ms for new API, us for old API) */
     int major, minor, patch;
@@ -45,24 +43,15 @@ base_impl::base_impl(int type, size_t itemsize, size_t vlen, int timeout, bool p
     if (major < 3) {
         d_timeout *= 1000;
     }
-
-    /* Create context & socket */
-    d_context = new zmq::context_t(1);
-    d_socket = new zmq::socket_t(*d_context, type);
 }
 
-base_impl::~base_impl()
-{
-    d_socket->close();
-    delete d_socket;
-    delete d_context;
-}
+base_impl::~base_impl() {}
 
 std::string base_impl::last_endpoint()
 {
     char addr[256];
     size_t addr_len = sizeof(addr);
-    d_socket->getsockopt(ZMQ_LAST_ENDPOINT, addr, &addr_len);
+    d_socket.getsockopt(ZMQ_LAST_ENDPOINT, addr, &addr_len);
     return std::string(addr, addr_len - 1);
 }
 
@@ -73,30 +62,41 @@ base_sink_impl::base_sink_impl(int type,
                                char* address,
                                int timeout,
                                bool pass_tags,
-                               int hwm)
-    : base_impl(type, itemsize, vlen, timeout, pass_tags)
+                               int hwm,
+                               const std::string& key)
+    : base_impl(type, itemsize, vlen, timeout, pass_tags, key)
 {
     /* Set high watermark */
     if (hwm >= 0) {
 #ifdef ZMQ_SNDHWM
-        d_socket->setsockopt(ZMQ_SNDHWM, &hwm, sizeof(hwm));
+        d_socket.setsockopt(ZMQ_SNDHWM, &hwm, sizeof(hwm));
 #else // major < 3
         uint64_t tmp = hwm;
-        d_socket->setsockopt(ZMQ_HWM, &tmp, sizeof(tmp));
+        d_socket.setsockopt(ZMQ_HWM, &tmp, sizeof(tmp));
 #endif
     }
 
     /* Set ZMQ_LINGER so socket won't infinitely block during teardown */
-    d_socket->setsockopt(ZMQ_LINGER, &LINGER_DEFAULT, sizeof(LINGER_DEFAULT));
+    d_socket.setsockopt(ZMQ_LINGER, &LINGER_DEFAULT, sizeof(LINGER_DEFAULT));
 
     /* Bind */
-    d_socket->bind(address);
+    d_socket.bind(address);
 }
 
 int base_sink_impl::send_message(const void* in_buf,
                                  const int in_nitems,
                                  const uint64_t in_offset)
 {
+    /* Send key if it exists */
+    if (!d_key.empty()) {
+        zmq::message_t key_message(d_key.size());
+        memcpy(key_message.data(), d_key.data(), d_key.size());
+#if USE_NEW_CPPZMQ_SEND_RECV
+        d_socket.send(key_message, zmq::send_flags::sndmore);
+#else
+        d_socket.send(key_message, ZMQ_SNDMORE);
+#endif
+    }
     /* Meta-data header */
     std::string header("");
     if (d_pass_tags) {
@@ -119,9 +119,9 @@ int base_sink_impl::send_message(const void* in_buf,
 
     /* Send */
 #if USE_NEW_CPPZMQ_SEND_RECV
-    d_socket->send(msg, zmq::send_flags::none);
+    d_socket.send(msg, zmq::send_flags::none);
 #else
-    d_socket->send(msg);
+    d_socket.send(msg);
 #endif
 
     /* Report back */
@@ -134,26 +134,27 @@ base_source_impl::base_source_impl(int type,
                                    char* address,
                                    int timeout,
                                    bool pass_tags,
-                                   int hwm)
-    : base_impl(type, itemsize, vlen, timeout, pass_tags),
+                                   int hwm,
+                                   const std::string& key)
+    : base_impl(type, itemsize, vlen, timeout, pass_tags, key),
       d_consumed_bytes(0),
       d_consumed_items(0)
 {
     /* Set high watermark */
     if (hwm >= 0) {
 #ifdef ZMQ_RCVHWM
-        d_socket->setsockopt(ZMQ_RCVHWM, &hwm, sizeof(hwm));
+        d_socket.setsockopt(ZMQ_RCVHWM, &hwm, sizeof(hwm));
 #else // major < 3
         uint64_t tmp = hwm;
-        d_socket->setsockopt(ZMQ_HWM, &tmp, sizeof(tmp));
+        d_socket.setsockopt(ZMQ_HWM, &tmp, sizeof(tmp));
 #endif
     }
 
     /* Set ZMQ_LINGER so socket won't infinitely block during teardown */
-    d_socket->setsockopt(ZMQ_LINGER, &LINGER_DEFAULT, sizeof(LINGER_DEFAULT));
+    d_socket.setsockopt(ZMQ_LINGER, &LINGER_DEFAULT, sizeof(LINGER_DEFAULT));
 
     /* Connect */
-    d_socket->connect(address);
+    d_socket.connect(address);
 }
 
 bool base_source_impl::has_pending() { return d_msg.size() > d_consumed_bytes; }
@@ -190,7 +191,7 @@ int base_source_impl::flush_pending(void* out_buf,
 bool base_source_impl::load_message(bool wait)
 {
     /* Poll for input */
-    zmq::pollitem_t items[] = { { static_cast<void*>(*d_socket), 0, ZMQ_POLLIN, 0 } };
+    zmq::pollitem_t items[] = { { static_cast<void*>(d_socket), 0, ZMQ_POLLIN, 0 } };
     zmq::poll(&items[0], 1, wait ? d_timeout : 0);
 
     if (!(items[0].revents & ZMQ_POLLIN))
@@ -199,7 +200,7 @@ bool base_source_impl::load_message(bool wait)
     /* Is this the start or continuation of a multi-part message? */
     int64_t more = 0;
     size_t more_len = sizeof(more);
-    d_socket->getsockopt(ZMQ_RCVMORE, &more, &more_len);
+    d_socket.getsockopt(ZMQ_RCVMORE, &more, &more_len);
 
     /* Reset */
     d_msg.rebuild();
@@ -209,11 +210,37 @@ bool base_source_impl::load_message(bool wait)
 
     /* Get the message */
 #if USE_NEW_CPPZMQ_SEND_RECV
-    d_socket->recv(d_msg);
+    const bool ok = bool(d_socket.recv(d_msg));
 #else
-    d_socket->recv(&d_msg);
+    const bool ok = d_socket.recv(&d_msg);
 #endif
+    if (!ok) {
+        // This shouldn't happen since we polled POLLIN, but ZMQ wants us to check
+        // the return value.
+        GR_LOG_WARN(d_logger, "Failed to recv() message.");
+        return false;
+    }
 
+    /* Throw away key and get the first message. Avoid blocking if a multi-part
+     * message is not sent */
+    if (!d_key.empty() && !more) {
+        int64_t is_multipart;
+        d_socket.getsockopt(ZMQ_RCVMORE, &is_multipart, &more_len);
+
+        d_msg.rebuild();
+        if (is_multipart) {
+#if USE_NEW_CPPZMQ_SEND_RECV
+            const bool multi_ok = bool(d_socket.recv(d_msg));
+#else
+            const bool multi_ok = d_socket.recv(&d_msg);
+#endif
+            if (!multi_ok) {
+                GR_LOG_ERROR(d_logger, "Failure to receive multi-part message.");
+            }
+        } else {
+            return false;
+        }
+    }
     /* Parse header from the first (or only) message of a multi-part message */
     if (d_pass_tags && !more) {
         uint64_t rcv_offset;
@@ -229,10 +256,8 @@ bool base_source_impl::load_message(bool wait)
 
     /* Each message must contain an integer multiple of data vectors */
     if ((d_msg.size() - d_consumed_bytes) % d_vsize != 0) {
-        throw std::runtime_error(
-            boost::str(boost::format("Incompatible vector sizes: "
-                                     "need a multiple of %1% bytes per message") %
-                       d_vsize));
+        throw std::runtime_error("Incompatible vector sizes: need a multiple of " +
+                                 std::to_string(d_vsize) + " bytes per message");
     }
 
     /* We got one ! */
@@ -241,5 +266,3 @@ bool base_source_impl::load_message(bool wait)
 
 } /* namespace zeromq */
 } /* namespace gr */
-
-// vim: ts=2 sw=2 expandtab

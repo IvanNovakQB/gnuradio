@@ -4,20 +4,8 @@
  *
  * This file is part of GNU Radio.
  *
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
  */
 
 #ifndef INCLUDED_ZEROMQ_SUB_MSG_SOURCE_IMPL_H
@@ -33,27 +21,28 @@ class sub_msg_source_impl : public sub_msg_source
 {
 private:
     int d_timeout; // microseconds, -1 is blocking
-    zmq::context_t* d_context;
-    zmq::socket_t* d_socket;
+    zmq::context_t d_context;
+    zmq::socket_t d_socket;
     boost::thread* d_thread;
     const pmt::pmt_t d_port;
+    const std::string d_key;
 
     void readloop();
 
 public:
     bool d_finished;
 
-    sub_msg_source_impl(char* address, int timeout, bool bind);
-    ~sub_msg_source_impl();
+    sub_msg_source_impl(char* address, int timeout, bool bind, const std::string& key);
+    ~sub_msg_source_impl() override;
 
-    bool start();
-    bool stop();
+    bool start() override;
+    bool stop() override;
 
     std::string last_endpoint() override
     {
         char addr[256];
         size_t addr_len = sizeof(addr);
-        d_socket->getsockopt(ZMQ_LAST_ENDPOINT, addr, &addr_len);
+        d_socket.getsockopt(ZMQ_LAST_ENDPOINT, addr, &addr_len);
         return std::string(addr, addr_len - 1);
     }
 };

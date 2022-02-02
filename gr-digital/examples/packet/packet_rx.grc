@@ -599,7 +599,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [232, 420.0]
+    coordinate: [224, 644.0]
     rotation: 180
     state: enabled
 - name: pad_source_0

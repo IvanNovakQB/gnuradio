@@ -128,7 +128,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     msg: pmt.PMT_T
-    period: '1000'
+    period: '10000'
   states:
     bus_sink: false
     bus_source: false
@@ -150,7 +150,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [312, 291]
+    coordinate: [320, 308.0]
     rotation: 0
     state: enabled
 - name: blocks_pdu_to_tagged_stream_0_0
@@ -167,7 +167,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [312, 219]
+    coordinate: [328, 212.0]
     rotation: 0
     state: enabled
 - name: blocks_random_pdu_0
@@ -206,7 +206,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 211]
+    coordinate: [536, 228.0]
     rotation: 0
     state: enabled
 - name: blocks_repack_bits_bb_0_0
@@ -226,7 +226,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 283]
+    coordinate: [528, 324.0]
     rotation: 0
     state: enabled
 - name: blocks_tagged_stream_mux_0
@@ -246,7 +246,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [224, 401]
+    coordinate: [312, 432.0]
     rotation: 0
     state: enabled
 - name: digital_chunks_to_symbols_xx_0
@@ -266,7 +266,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [872, 208.0]
+    coordinate: [928, 200.0]
     rotation: 0
     state: enabled
 - name: digital_chunks_to_symbols_xx_0_0
@@ -286,7 +286,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [872, 280.0]
+    coordinate: [960, 296.0]
     rotation: 0
     state: enabled
 - name: digital_crc32_async_bb_1
@@ -318,7 +318,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 219]
+    coordinate: [688, 140.0]
     rotation: 0
     state: enabled
 - name: digital_map_bb_1_0
@@ -334,7 +334,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 291]
+    coordinate: [784, 308.0]
     rotation: 0
     state: enabled
 - name: digital_protocol_formatter_async_0
@@ -363,7 +363,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 204.0]
+    coordinate: [1200, 188.0]
     rotation: 0
     state: enabled
 - name: mod_payload
@@ -376,7 +376,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 276.0]
+    coordinate: [1312, 300.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_0
@@ -456,7 +456,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 443]
+    coordinate: [1160, 472.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -476,16 +476,16 @@ blocks:
     alpha9: '1.0'
     autoscale: 'False'
     axislabels: 'True'
-    color1: '"blue"'
-    color10: '"blue"'
-    color2: '"red"'
-    color3: '"green"'
-    color4: '"black"'
-    color5: '"cyan"'
-    color6: '"magenta"'
-    color7: '"yellow"'
-    color8: '"dark red"'
-    color9: '"dark green"'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
     comment: ''
     ctrlpanel: 'False'
     entags: 'True'
@@ -553,7 +553,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 363]
+    coordinate: [1128, 364.0]
     rotation: 0
     state: enabled
 - name: rx_mod_header
@@ -579,7 +579,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 427]
+    coordinate: [16, 468.0]
     rotation: 0
     state: enabled
 - name: tab
@@ -613,7 +613,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 531]
+    coordinate: [1104, 604.0]
     rotation: 0
     state: enabled
 

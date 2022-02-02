@@ -1,6 +1,11 @@
 options:
   parameters:
+    author: ''
     category: Custom
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
     gen_cmake: 'On'
     gen_linking: dynamic
     generate_options: qt_gui
@@ -9,12 +14,19 @@ options:
     max_nouts: '0'
     output_language: python
     placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
     run: 'True'
     run_command: '{python} -u {filename}'
     run_options: prompt
     sizing_mode: fixed
+    thread_safe_setters: ''
+    title: ''
     window_size: 3000,2000
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [10, 10]
     rotation: 0
     state: enabled
@@ -23,6 +35,7 @@ blocks:
 - name: dec_cc
   id: variable_cc_decoder_def
   parameters:
+    comment: ''
     dim1: '1'
     dim2: '4'
     framebits: frame_size*8
@@ -36,24 +49,32 @@ blocks:
     state_start: '0'
     value: '"ok"'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [174, 688]
     rotation: 0
     state: enabled
 - name: dec_dummy
   id: variable_dummy_decoder_def
   parameters:
+    comment: ''
     dim1: '1'
     dim2: '1'
     framebits: frame_size*8
     ndim: '0'
     value: '"ok"'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [371, 656]
     rotation: 0
     state: enabled
 - name: dec_rep
   id: variable_repetition_decoder_def
   parameters:
+    comment: ''
     dim1: '4'
     dim2: '1'
     framebits: frame_size*8
@@ -62,12 +83,16 @@ blocks:
     rep: '3'
     value: '"ok"'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [553, 674]
     rotation: 0
     state: enabled
 - name: enc_ccsds
   id: variable_ccsds_encoder_def
   parameters:
+    comment: ''
     dim1: '1'
     dim2: '4'
     framebits: frame_size*8
@@ -75,67 +100,97 @@ blocks:
     ndim: '0'
     state_start: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [189, 562]
     rotation: 0
     state: enabled
 - name: enc_dummy
   id: variable_dummy_encoder_def
   parameters:
+    comment: ''
     dim1: '1'
     dim2: '4'
     framebits: frame_size*8
     ndim: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [371, 562]
     rotation: 0
     state: enabled
 - name: enc_rep
   id: variable_repetition_encoder_def
   parameters:
+    comment: ''
     dim1: '4'
     dim2: '1'
     framebits: frame_size*8
     ndim: '0'
     rep: '3'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [553, 562]
     rotation: 0
     state: enabled
 - name: k
   id: variable
   parameters:
+    comment: ''
     value: '7'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [58, 562]
     rotation: 0
     state: enabled
 - name: polys
   id: variable
   parameters:
+    comment: ''
     value: '[109, 79]'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [98, 623]
     rotation: 0
     state: enabled
 - name: rate
   id: variable
   parameters:
+    comment: ''
     value: '2'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [123, 562]
     rotation: 0
     state: enabled
 - name: samp_rate
   id: variable
   parameters:
+    comment: ''
     value: '50000'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [10, 74]
     rotation: 0
     state: enabled
 - name: analog_random_source_x_0
   id: analog_random_source_x
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     max: '256'
     maxoutbuf: '0'
     min: '0'
@@ -144,97 +199,150 @@ blocks:
     repeat: 'True'
     type: byte
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [54, 464]
     rotation: 180
     state: disabled
 - name: blocks_char_to_float_0
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [684, 425]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1064, 425]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_0
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1067, 330]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_0_0
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1064, 237]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_1
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [322, 152]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_2
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [682, 330]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_2_0
   id: blocks_char_to_float
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     scale: '1'
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [680, 237]
     rotation: 0
     state: enabled
 - name: blocks_ctrlport_monitor_performance_0
   id: blocks_ctrlport_monitor_performance
   parameters:
+    alias: ''
+    comment: ''
     en: 'True'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [361, 10]
     rotation: 0
     state: disabled
 - name: blocks_throttle_0
   id: blocks_throttle
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     ignoretag: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -242,22 +350,34 @@ blocks:
     type: byte
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [99, 267]
     rotation: 0
     state: enabled
 - name: blocks_unpack_k_bits_bb_0
   id: blocks_unpack_k_bits_bb
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     k: '8'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [116, 371]
     rotation: 0
     state: enabled
 - name: blocks_vector_source_x_0_1_0
   id: blocks_vector_source_x
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
     repeat: 'True'
@@ -266,43 +386,67 @@ blocks:
     vector: (frame_size//15)*[0, 0, 1, 0, 3, 0, 7, 0, 15, 0, 31, 0, 63, 0, 127]
     vlen: '1'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [56, 139]
     rotation: 180
     state: enabled
 - name: digital_map_bb_0_0
   id: digital_map_bb
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     map: '[-1, 1]'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [545, 425]
     rotation: 0
     state: enabled
 - name: digital_map_bb_0_0_0
   id: digital_map_bb
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     map: '[-1, 1]'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [545, 330]
     rotation: 0
     state: enabled
 - name: digital_map_bb_0_0_0_0
   id: digital_map_bb
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     map: '[-1, 1]'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [543, 237]
     rotation: 0
     state: enabled
 - name: fec_extended_decoder_0
   id: fec_extended_decoder
   parameters:
+    affinity: ''
+    alias: ''
     ann: None
+    comment: ''
     decoder_list: dec_cc
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -310,13 +454,19 @@ blocks:
     threadtype: none
     value: fec_extended_decoder
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [842, 401]
     rotation: 0
     state: enabled
 - name: fec_extended_decoder_0_1
   id: fec_extended_decoder
   parameters:
+    affinity: ''
+    alias: ''
     ann: None
+    comment: ''
     decoder_list: dec_rep
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -324,13 +474,19 @@ blocks:
     threadtype: none
     value: fec_extended_decoder
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [842, 306]
     rotation: 0
     state: enabled
 - name: fec_extended_decoder_0_1_0
   id: fec_extended_decoder
   parameters:
+    affinity: ''
+    alias: ''
     ann: None
+    comment: ''
     decoder_list: dec_dummy
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -338,68 +494,105 @@ blocks:
     threadtype: none
     value: fec_extended_decoder
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [842, 213]
     rotation: 0
     state: enabled
 - name: fec_extended_encoder_1
   id: fec_extended_encoder
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     encoder_list: enc_ccsds
     maxoutbuf: '0'
     minoutbuf: '0'
     puncpat: puncpat
     threadtype: capillary
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [321, 409]
     rotation: 0
     state: enabled
 - name: fec_extended_encoder_1_0
   id: fec_extended_encoder
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     encoder_list: enc_rep
     maxoutbuf: '0'
     minoutbuf: '0'
     puncpat: puncpat
     threadtype: capillary
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [321, 314]
     rotation: 0
     state: enabled
 - name: fec_extended_encoder_1_0_0
   id: fec_extended_encoder
   parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
     encoder_list: enc_dummy
     maxoutbuf: '0'
     minoutbuf: '0'
     puncpat: puncpat
     threadtype: capillary
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [321, 221]
     rotation: 0
     state: enabled
 - name: frame_size
   id: parameter
   parameters:
+    alias: ''
+    comment: ''
     hide: none
     label: Frame Size
+    short_id: ''
     type: intx
     value: '30'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [171, 10]
     rotation: 0
     state: enabled
 - name: puncpat
   id: parameter
   parameters:
+    alias: ''
+    comment: ''
     hide: none
+    label: ''
+    short_id: ''
+    type: ''
     value: '''11'''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [280, 10]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
+    affinity: ''
+    alias: ''
     alpha1: '1.0'
     alpha10: '1.0'
     alpha2: '0.6'
@@ -412,24 +605,31 @@ blocks:
     alpha9: '1.0'
     autoscale: 'False'
     axislabels: 'True'
-    color1: '"blue"'
-    color10: '"blue"'
-    color2: '"red"'
-    color3: '"green"'
-    color4: '"black"'
-    color5: '"cyan"'
-    color6: '"magenta"'
-    color7: '"yellow"'
-    color8: '"dark red"'
-    color9: '"dark green"'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
+    gui_hint: ''
     label1: Input
+    label10: Signal 10
     label2: Dummy
     label3: Rep. (Rate=3)
     label4: CC (K=7, Rate=2)
     label5: CCSDS
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
     legend: 'True'
     marker1: '-1'
     marker10: '-1'
@@ -441,7 +641,8 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    nconnections: '4'
+    name: '""'
+    nconnections: '7'
     size: '2048'
     srate: samp_rate
     stemplot: 'False'
@@ -478,6 +679,9 @@ blocks:
     ymin: '-0.5'
     yunit: '""'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [1292, 178]
     rotation: 0
     state: enabled
@@ -485,12 +689,15 @@ blocks:
 connections:
 - [analog_random_source_x_0, '0', blocks_throttle_0, '0']
 - [blocks_char_to_float_0, '0', fec_extended_decoder_0, '0']
+- [blocks_char_to_float_0, '0', qtgui_time_sink_x_0, '6']
 - [blocks_char_to_float_0_0, '0', qtgui_time_sink_x_0, '3']
 - [blocks_char_to_float_0_0_0, '0', qtgui_time_sink_x_0, '2']
 - [blocks_char_to_float_0_0_0_0, '0', qtgui_time_sink_x_0, '1']
 - [blocks_char_to_float_0_1, '0', qtgui_time_sink_x_0, '0']
 - [blocks_char_to_float_0_2, '0', fec_extended_decoder_0_1, '0']
+- [blocks_char_to_float_0_2, '0', qtgui_time_sink_x_0, '5']
 - [blocks_char_to_float_0_2_0, '0', fec_extended_decoder_0_1_0, '0']
+- [blocks_char_to_float_0_2_0, '0', qtgui_time_sink_x_0, '4']
 - [blocks_throttle_0, '0', blocks_unpack_k_bits_bb_0, '0']
 - [blocks_unpack_k_bits_bb_0, '0', blocks_char_to_float_0_1, '0']
 - [blocks_unpack_k_bits_bb_0, '0', fec_extended_encoder_1, '0']

@@ -24,6 +24,9 @@ options:
     title: ''
     window_size: ''
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [8, 11]
     rotation: 0
     state: enabled
@@ -36,7 +39,10 @@ blocks:
     alias: ''
     comment: ''
   states:
-    coordinate: [688, 104.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 104.0]
     rotation: 0
     state: enabled
 - name: blocks_message_strobe_0
@@ -50,6 +56,9 @@ blocks:
     msg: pmt.PMT_T
     period: '2000'
   states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
     coordinate: [32, 156.0]
     rotation: 0
     state: enabled
@@ -66,7 +75,10 @@ blocks:
     minoutbuf: '0'
     minsize: '15'
   states:
-    coordinate: [216, 140.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 140.0]
     rotation: 0
     state: enabled
 - name: digital_crc32_async_bb_1
@@ -79,7 +91,10 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    coordinate: [472, 212.0]
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 308.0]
     rotation: 0
     state: enabled
 

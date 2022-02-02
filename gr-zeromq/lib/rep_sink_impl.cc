@@ -4,20 +4,8 @@
  *
  * This file is part of GNU Radio.
  *
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -61,7 +49,7 @@ int rep_sink_impl::work(int noutput_items,
         /* Wait for a small time (FIXME: scheduler can't wait for us) */
         /* We only wait if its the first iteration, for the others we'll
          * let the scheduler retry */
-        zmq::pollitem_t items[] = { { static_cast<void*>(*d_socket), 0, ZMQ_POLLIN, 0 } };
+        zmq::pollitem_t items[] = { { static_cast<void*>(d_socket), 0, ZMQ_POLLIN, 0 } };
         zmq::poll(&items[0], 1, first ? d_timeout : 0);
 
         /* If we don't have anything, we're done */
@@ -71,10 +59,15 @@ int rep_sink_impl::work(int noutput_items,
         /* Get and parse the request */
         zmq::message_t request;
 #if USE_NEW_CPPZMQ_SEND_RECV
-        d_socket->recv(request);
+        bool ok = bool(d_socket.recv(request));
 #else
-        d_socket->recv(&request);
+        bool ok = d_socket.recv(&request);
 #endif
+        if (!ok) {
+            // Should not happen, we've checked POLLIN.
+            GR_LOG_ERROR(d_logger, "Failed to receive message.");
+            break;
+        }
 
         int nitems_send = noutput_items - done;
         if (request.size() >= sizeof(uint32_t)) {

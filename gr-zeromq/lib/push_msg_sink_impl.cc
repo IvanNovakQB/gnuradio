@@ -4,20 +4,8 @@
  *
  * This file is part of GNU Radio.
  *
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -40,7 +28,9 @@ push_msg_sink_impl::push_msg_sink_impl(char* address, int timeout, bool bind)
     : gr::block("push_msg_sink",
                 gr::io_signature::make(0, 0, 0),
                 gr::io_signature::make(0, 0, 0)),
-      d_timeout(timeout)
+      d_timeout(timeout),
+      d_context(1),
+      d_socket(d_context, ZMQ_PUSH)
 {
     int major, minor, patch;
     zmq::version(&major, &minor, &patch);
@@ -49,28 +39,20 @@ push_msg_sink_impl::push_msg_sink_impl(char* address, int timeout, bool bind)
         d_timeout = timeout * 1000;
     }
 
-    d_context = new zmq::context_t(1);
-    d_socket = new zmq::socket_t(*d_context, ZMQ_PUSH);
-
     int time = 0;
-    d_socket->setsockopt(ZMQ_LINGER, &time, sizeof(time));
+    d_socket.setsockopt(ZMQ_LINGER, &time, sizeof(time));
 
     if (bind) {
-        d_socket->bind(address);
+        d_socket.bind(address);
     } else {
-        d_socket->connect(address);
+        d_socket.connect(address);
     }
 
     message_port_register_in(pmt::mp("in"));
     set_msg_handler(pmt::mp("in"), [this](pmt::pmt_t msg) { this->handler(msg); });
 }
 
-push_msg_sink_impl::~push_msg_sink_impl()
-{
-    d_socket->close();
-    delete d_socket;
-    delete d_context;
-}
+push_msg_sink_impl::~push_msg_sink_impl() {}
 
 void push_msg_sink_impl::handler(pmt::pmt_t msg)
 {
@@ -81,9 +63,9 @@ void push_msg_sink_impl::handler(pmt::pmt_t msg)
 
     memcpy(zmsg.data(), s.c_str(), s.size());
 #if USE_NEW_CPPZMQ_SEND_RECV
-    d_socket->send(zmsg, zmq::send_flags::none);
+    d_socket.send(zmsg, zmq::send_flags::none);
 #else
-    d_socket->send(zmsg);
+    d_socket.send(zmsg);
 #endif
 }
 

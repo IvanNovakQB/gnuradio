@@ -59,7 +59,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 11]
+    coordinate: [864, 4.0]
     rotation: 0
     state: enabled
 - name: hdr_format
@@ -104,7 +104,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [976, 11]
+    coordinate: [1112, 4.0]
     rotation: 0
     state: enabled
 - name: thresh
@@ -246,7 +246,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [224, 401]
+    coordinate: [296, 512.0]
     rotation: 0
     state: enabled
 - name: digital_burst_shaper_xx_0
@@ -267,7 +267,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [456, 379]
+    coordinate: [608, 500.0]
     rotation: 0
     state: enabled
 - name: digital_chunks_to_symbols_xx_0
@@ -287,7 +287,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [864, 224.0]
+    coordinate: [976, 200.0]
     rotation: 0
     state: enabled
 - name: digital_chunks_to_symbols_xx_0_0
@@ -307,7 +307,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [864, 296.0]
+    coordinate: [984, 280.0]
     rotation: 0
     state: enabled
 - name: digital_crc32_async_bb_1
@@ -384,7 +384,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1040, 220.0]
+    coordinate: [1208, 188.0]
     rotation: 0
     state: enabled
 - name: mod_payload
@@ -397,7 +397,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1040, 292.0]
+    coordinate: [1192, 276.0]
     rotation: 0
     state: enabled
 - name: qtgui_freq_sink_x_0
@@ -477,7 +477,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 443]
+    coordinate: [1208, 448.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -574,7 +574,104 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 363]
+    coordinate: [1192, 348.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: tab@0
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'False'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: '400'
+    srate: '1'
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '15'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_TAG
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: packet_len
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '2'
+    ymin: '-2'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [880, 620.0]
     rotation: 0
     state: enabled
 - name: rx_mod_header
@@ -587,7 +684,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 379]
+    coordinate: [16, 404.0]
     rotation: 0
     state: enabled
 - name: rx_mod_payload
@@ -600,7 +697,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 427]
+    coordinate: [16, 468.0]
     rotation: 0
     state: enabled
 - name: tab
@@ -634,7 +731,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 531]
+    coordinate: [1208, 580.0]
     rotation: 0
     state: enabled
 
@@ -646,6 +743,7 @@ connections:
 - [blocks_repack_bits_bb_0, '0', digital_map_bb_1, '0']
 - [blocks_repack_bits_bb_0_0, '0', digital_map_bb_1_0, '0']
 - [blocks_tagged_stream_mux_0, '0', digital_burst_shaper_xx_0, '0']
+- [blocks_tagged_stream_mux_0, '0', qtgui_time_sink_x_0_0, '0']
 - [digital_burst_shaper_xx_0, '0', qtgui_freq_sink_x_0, '0']
 - [digital_burst_shaper_xx_0, '0', qtgui_time_sink_x_0, '0']
 - [digital_chunks_to_symbols_xx_0, '0', mod_header, '0']

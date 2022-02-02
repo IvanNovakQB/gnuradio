@@ -22,18 +22,18 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 try:
-    from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+    from PyQt5 import Qt, QtCore, QtGui
 except ImportError:
     raise SystemExit('Please install PyQt5 to run this script (http://www.riverbankcomputing.co.uk/software/pyqt/download)')
 
 
 # Movable solid line for filter ideal-band diagram.
 # Enable split to cut the line into two (for bpf).
-class filtermovlineItem(QtWidgets.QGraphicsObject):
+class filtermovlineItem(QtGui.QGraphicsObject):
     attenChanged = QtCore.pyqtSignal(float)
 
     def __init__(self, x1, y1, x2, y2, lower, upper, split=False, sx1=0, sy1=0, sx2=0, sy2=0):
-        QtWidgets.QGraphicsObject.__init__(self)
+        QtGui.QGraphicsObject.__init__(self)
         self.lower = lower
         self.upper = upper
         self.x1, self.y1 = x1, y1
@@ -57,7 +57,7 @@ class filtermovlineItem(QtWidgets.QGraphicsObject):
 
     # Allow only vertical movement and emit signals.
     def itemChange(self, change, value):
-        if (change == QtWidgets.QGraphicsItem.ItemPositionChange):
+        if (change == QtGui.QGraphicsItem.ItemPositionChange):
             newpos = value.toPointF()
             div = 0
             if newpos.y() < self.pos().y():
@@ -75,13 +75,13 @@ class filtermovlineItem(QtWidgets.QGraphicsObject):
             if not(hit):
                 self.attenChanged.emit(div)
             return QtCore.QPointF(self.pos().x(), newpos.y())
-        return QtWidgets.QGraphicsItem.itemChange(self, change, value)
+        return QtGui.QGraphicsItem.itemChange(self, change, value)
 
 
 # Static lines in lpf band diagram.
-class lpfsLines(QtWidgets.QGraphicsObject):
+class lpfsLines(QtGui.QGraphicsObject):
     def __init__(self):
-        QtWidgets.QGraphicsObject.__init__(self)
+        QtGui.QGraphicsObject.__init__(self)
 
     def paint(self, painter, option, widget):
         painter.setPen(QtGui.QPen(QtCore.Qt.darkGray, 2, QtCore.Qt.SolidLine))
@@ -106,9 +106,9 @@ class lpfsLines(QtWidgets.QGraphicsObject):
 
 
 # Static lines in hpf band diagram.
-class hpfsLines(QtWidgets.QGraphicsObject):
+class hpfsLines(QtGui.QGraphicsObject):
     def __init__(self):
-        QtWidgets.QGraphicsObject.__init__(self)
+        QtGui.QGraphicsObject.__init__(self)
 
     def paint(self, painter, option, widget):
         painter.setPen(QtGui.QPen(QtCore.Qt.darkGray, 2, QtCore.Qt.SolidLine))
@@ -129,9 +129,9 @@ class hpfsLines(QtWidgets.QGraphicsObject):
 
 
 # Static lines in bpf band diagram.
-class bpfsLines(QtWidgets.QGraphicsObject):
+class bpfsLines(QtGui.QGraphicsObject):
     def __init__(self):
-        QtWidgets.QGraphicsObject.__init__(self)
+        QtGui.QGraphicsObject.__init__(self)
 
     def paint(self, painter, option, widget):
         painter.setPen(QtGui.QPen(QtCore.Qt.darkGray, 2, QtCore.Qt.SolidLine))
@@ -157,9 +157,9 @@ class bpfsLines(QtWidgets.QGraphicsObject):
 
 
 # Static lines in bnf band diagram.
-class bnfsLines(QtWidgets.QGraphicsObject):
+class bnfsLines(QtGui.QGraphicsObject):
     def __init__(self):
-        QtWidgets.QGraphicsObject.__init__(self)
+        QtGui.QGraphicsObject.__init__(self)
 
     def paint(self, painter, option, widget):
         painter.setPen(QtGui.QPen(QtCore.Qt.darkGray, 2, QtCore.Qt.SolidLine))
@@ -192,24 +192,24 @@ bnfItems = []
 # lpfitems list.
 lpfItems.append(filtermovlineItem(200, 175, 400, 175, 0, -60))
 # lpfItems.append(filtermovlineItem(200, 145, 400, 145, 30, -30))
-lpfItems[0].setFlags(QtWidgets.QGraphicsItem.ItemIsSelectable | QtWidgets.QGraphicsItem.ItemIsMovable |
-                     QtWidgets.QGraphicsItem.ItemSendsGeometryChanges)
+lpfItems[0].setFlags(QtGui.QGraphicsItem.ItemIsSelectable | QtGui.QGraphicsItem.ItemIsMovable |
+                     QtGui.QGraphicsItem.ItemSendsGeometryChanges)
 lpfItems.append(lpfsLines())
 
 # hpfitems list.
 hpfItems.append(filtermovlineItem(6, 175, 150, 175, 0, -60))
-hpfItems[0].setFlags(QtWidgets.QGraphicsItem.ItemIsSelectable | QtWidgets.QGraphicsItem.ItemIsMovable |
-                     QtWidgets.QGraphicsItem.ItemSendsGeometryChanges)
+hpfItems[0].setFlags(QtGui.QGraphicsItem.ItemIsSelectable | QtGui.QGraphicsItem.ItemIsMovable |
+                     QtGui.QGraphicsItem.ItemSendsGeometryChanges)
 hpfItems.append(hpfsLines())
 
 # bpfitems list.
 bpfItems.append(filtermovlineItem(6, 175, 110, 175, 0, -60, True, 300, 175, 400, 175))
-bpfItems[0].setFlags(QtWidgets.QGraphicsItem.ItemIsSelectable | QtWidgets.QGraphicsItem.ItemIsMovable |
-                     QtWidgets.QGraphicsItem.ItemSendsGeometryChanges)
+bpfItems[0].setFlags(QtGui.QGraphicsItem.ItemIsSelectable | QtGui.QGraphicsItem.ItemIsMovable |
+                     QtGui.QGraphicsItem.ItemSendsGeometryChanges)
 bpfItems.append(bpfsLines())
 
 # bnfitems list.
 bnfItems.append(filtermovlineItem(155, 175, 255, 175, 0, -60))
-bnfItems[0].setFlags(QtWidgets.QGraphicsItem.ItemIsSelectable | QtWidgets.QGraphicsItem.ItemIsMovable |
-                     QtWidgets.QGraphicsItem.ItemSendsGeometryChanges)
+bnfItems[0].setFlags(QtGui.QGraphicsItem.ItemIsSelectable | QtGui.QGraphicsItem.ItemIsMovable |
+                     QtGui.QGraphicsItem.ItemSendsGeometryChanges)
 bnfItems.append(bnfsLines())

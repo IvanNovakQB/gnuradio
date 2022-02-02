@@ -100,9 +100,9 @@ except AttributeError:
     def _fromUtf8(s): return s
 
 # Gnuradio Filter design tool main window
-class gr_plot_filter(QtWidgets.QMainWindow):
+class gr_plot_filter(QtGui.QMainWindow):
     def __init__(self, options, callback=None, restype=""):
-        QtWidgets.QWidget.__init__(self, None)
+        QtGui.QWidget.__init__(self, None)
         self.gui = Ui_MainWindow()
         self.callback = callback
 
@@ -205,8 +205,7 @@ class gr_plot_filter(QtWidgets.QMainWindow):
 
         self.gui.mtimpPush.clicked.connect(self.set_mtimpulse)
 
-        # Not working as of 3.8
-        # self.gui.checkKeepcur.stateChanged['int'].connect(self.set_bufferplots)
+        self.gui.checkKeepcur.stateChanged['int'].connect(self.set_bufferplots)
 
         self.gui.checkGrid.stateChanged['int'].connect(self.set_grid)
 
@@ -413,7 +412,7 @@ class gr_plot_filter(QtWidgets.QMainWindow):
         self.bnfitems[0].attenChanged.connect(self.set_fatten)
 
         # Populate the Band-diagram scene.
-        self.scene = QtWidgets.QGraphicsScene()
+        self.scene = QtGui.QGraphicsScene()
         self.scene.setSceneRect(0,0,250,250)
         lightback = QtGui.qRgb(0xf8, 0xf8, 0xff)
         backbrush = Qt.QBrush(Qt.QColor(lightback))
@@ -431,17 +430,17 @@ class gr_plot_filter(QtWidgets.QMainWindow):
         self.cpicker2.mouseposChanged.connect(self.set_mstatusbar)
         # Edit boxes for band-diagrams (Not required todate so may be remove?).
         """
-        self.lpfpassEdit = QtWidgets.QLineEdit()
+        self.lpfpassEdit = QtGui.QLineEdit()
         self.lpfpassEdit.setMaximumSize(QtCore.QSize(75,20))
         self.lpfpassEdit.setText('Not set')
-        self.lpfstartproxy = QtWidgets.QGraphicsProxyWidget()
+        self.lpfstartproxy = QtGui.QGraphicsProxyWidget()
         self.lpfstartproxy.setWidget(self.lpfpassEdit)
         self.lpfstartproxy.setPos(400,30)
 
-        self.lpfstopEdit = QtWidgets.QLineEdit()
+        self.lpfstopEdit = QtGui.QLineEdit()
         self.lpfstopEdit.setMaximumSize(QtCore.QSize(75,20))
         self.lpfstopEdit.setText('Not set')
-        self.lpfstopproxy = QtWidgets.QGraphicsProxyWidget()
+        self.lpfstopproxy = QtGui.QGraphicsProxyWidget()
         self.lpfstopproxy.setWidget(self.lpfstopEdit)
         self.lpfstopproxy.setPos(400,50)
         self.lpfitems.append(self.lpfstartproxy)
@@ -798,9 +797,9 @@ class gr_plot_filter(QtWidgets.QMainWindow):
                 warnings.simplefilter("always")
                 self.design_iir()
                 if len(w):
-                    reply = QtWidgets.QMessageBox.information(self, "BadCoefficients",
+                    reply = QtGui.QMessageBox.information(self, "BadCoefficients",
                                                           str(w[-1].message),
-                                                          QtWidgets.QMessageBox.Ok)
+                                                          QtGui.QMessageBox.Ok)
 
     # Do FIR design.
     def design_fir(self, ftype, fs, gain, winstr):
@@ -926,8 +925,8 @@ class gr_plot_filter(QtWidgets.QMainWindow):
                 (self.b, self.a) = signal.iirfilter(order, besselparams, btype=iirbtype.replace(' ', '').lower(),
                                                     analog=sanalog[atype], ftype=iirft[iirftype], output='ba')
             except Exception as e:
-                reply = QtWidgets.QMessageBox.information(self, "IIR design error", e.args[0],
-                                                      QtWidgets.QMessageBox.Ok)
+                reply = QtGui.QMessageBox.information(self, "IIR design error", e.args[0],
+                                                      QtGui.QMessageBox.Ok)
 
             (self.z, self.p, self.k) = signal.tf2zpk(self.b, self.a)
 
@@ -938,8 +937,8 @@ class gr_plot_filter(QtWidgets.QMainWindow):
                 (self.b, self.a) = signal.iirdesign(params[0], params[1], params[2], params[3],
                                                     analog=sanalog[atype], ftype=iirft[iirftype], output='ba')
             except Exception as e:
-                reply = QtWidgets.QMessageBox.information(self, "IIR design error", e.args[0],
-                                                      QtWidgets.QMessageBox.Ok)
+                reply = QtGui.QMessageBox.information(self, "IIR design error", e.args[0],
+                                                      QtGui.QMessageBox.Ok)
 
             (self.z, self.p, self.k) = signal.tf2zpk(self.b, self.a)
             # Create parameters.
@@ -1444,40 +1443,39 @@ class gr_plot_filter(QtWidgets.QMainWindow):
         else:
             self.gui.filterFrame.hide()
 
-    # TODO: method still uses QWT - migrate to pyqtgraph
-    # # Saves and attach the plots for comparison.
-    # def set_bufferplots(self):
-    #     if (self.gui.checkKeepcur.checkState() == 0 ):
-    #         # Detach and delete all plots if unchecked.
-    #         for c in self.bufferplots:
-    #             c.detach()
-    #             self.replot_all()
-    #             self.bufferplots = []
-    #     else:
-    #         self.bufferplots = []
-    #         # Iterate through tabgroup children and copy curves.
-    #         for i in range(self.gui.tabGroup.count()):
-    #             page = self.gui.tabGroup.widget(i)
-    #             for item in page.children():
-    #                 if isinstance(item, Qwt.QwtPlot):
-    #                     # Change colours as both plots overlay.
-    #                     colours = [QtCore.Qt.darkYellow,QtCore.Qt.black]
-    #                     for c in item.itemList():
-    #                         if isinstance(c, Qwt.QwtPlotCurve):
-    #                             dup = Qwt.QwtPlotCurve()
-    #                             dpen = c.pen()
-    #                             dsym = c.symbol()
-    #                             dsym.setPen(Qt.QPen(colours[0]))
-    #                             dsym.setSize(Qt.QSize(6, 6))
-    #                             dpen.setColor(colours[0])
-    #                             del colours[0]
-    #                             dup.setPen(dpen)
-    #                             dup.setSymbol(dsym)
-    #                             dup.setRenderHint(Qwt.QwtPlotItem.RenderAntialiased)
-    #                             dup.setData([c.x(i) for i in range(c.dataSize())],
-    #                                         [c.y(i) for i in range(c.dataSize())])
-    #                             self.bufferplots.append(dup)
-    #                             self.bufferplots[-1].attach(item)
+    # Saves and attach the plots for comparison.
+    def set_bufferplots(self):
+        if (self.gui.checkKeepcur.checkState() == 0 ):
+            # Detach and delete all plots if unchecked.
+            for c in self.bufferplots:
+                c.detach()
+                self.replot_all()
+                self.bufferplots = []
+        else:
+            self.bufferplots = []
+            # Iterate through tabgroup children and copy curves.
+            for i in range(self.gui.tabGroup.count()):
+                page = self.gui.tabGroup.widget(i)
+                for item in page.children():
+                    if isinstance(item, Qwt.QwtPlot):
+                        # Change colours as both plots overlay.
+                        colours = [QtCore.Qt.darkYellow,QtCore.Qt.black]
+                        for c in item.itemList():
+                            if isinstance(c, Qwt.QwtPlotCurve):
+                                dup = Qwt.QwtPlotCurve()
+                                dpen = c.pen()
+                                dsym = c.symbol()
+                                dsym.setPen(Qt.QPen(colours[0]))
+                                dsym.setSize(Qt.QSize(6, 6))
+                                dpen.setColor(colours[0])
+                                del colours[0]
+                                dup.setPen(dpen)
+                                dup.setSymbol(dsym)
+                                dup.setRenderHint(Qwt.QwtPlotItem.RenderAntialiased)
+                                dup.setData([c.x(i) for i in range(c.dataSize())],
+                                            [c.y(i) for i in range(c.dataSize())])
+                                self.bufferplots.append(dup)
+                                self.bufferplots[-1].attach(item)
 
     def set_grid(self):
         if (self.gui.checkGrid.checkState() == 0):
@@ -1638,20 +1636,20 @@ class gr_plot_filter(QtWidgets.QMainWindow):
         else:
             return False
 
-    # TODO: method still uses QWT - migrate to pyqtgraph
-    # def detach_firstattached(self, plot):
-    #     items = plot.itemList()
-    #     plot.enableAxis(Qwt.QwtPlot.yRight)
-    #     if len(items) > 2:
-    #         yaxis=items[0].yAxis()
-    #         items[2].setPen(items[0].pen())
-    #         items[2].setYAxis(yaxis)
-    #         items[0].detach()
-    #     else:
-    #         items[1].setYAxis(Qwt.QwtPlot.yRight)
-    #         if plot is self.mplots['mFREQ']:
-    #             items[1].setPen(QtGui.QPen(QtCore.Qt.red, 1, QtCore.Qt.SolidLine))
-    #             self.set_actgrid()
+    def detach_firstattached(self, plot):
+        items = plot.itemList()
+        plot.enableAxis(Qwt.QwtPlot.yRight)
+        if len(items) > 2:
+            yaxis=items[0].yAxis()
+            items[2].setPen(items[0].pen())
+            items[2].setYAxis(yaxis)
+            items[0].detach()
+        else:
+            items[1].setYAxis(Qwt.QwtPlot.yRight)
+            if plot is self.mplots['mFREQ']:
+                items[1].setPen(QtGui.QPen(QtCore.Qt.red, 1, QtCore.Qt.SolidLine))
+                self.set_actgrid()
+
 
     def update_fft(self, taps, params):
         self.params = params
@@ -1986,14 +1984,13 @@ class gr_plot_filter(QtWidgets.QMainWindow):
         self.gui.mfilterCoeff.setText(fcoeff)
 
     def action_save_dialog(self):
-        file_dialog_output = QtWidgets.QFileDialog.getSaveFileName(self, "Save CSV Filter File", ".", "")
-        filename = file_dialog_output[0]
+        filename, _filter = QtGui.QFileDialog.getSaveFileName(self, "Save CSV Filter File", ".", "")
         try:
             handle = open(filename, "w")
         except IOError:
-            reply = QtWidgets.QMessageBox.information(self, 'File Name',
+            reply = QtGui.QMessageBox.information(self, 'File Name',
                                                   ("Could not save to file: %s" % filename),
-                                                  QtWidgets.QMessageBox.Ok)
+                                                  QtGui.QMessageBox.Ok)
             return
 
         csvhandle = csv.writer(handle, delimiter=",")
@@ -2023,16 +2020,16 @@ class gr_plot_filter(QtWidgets.QMainWindow):
         self.replot_all()
 
     def action_open_dialog(self):
-        file_dialog_output = QtWidgets.QFileDialog.getOpenFileName(self, "Open CSV Filter File", ".", "")
-        if(len(file_dialog_output) == 0):
+        filename, _filter = QtGui.QFileDialog.getOpenFileName(self, "Open CSV Filter File", ".", "")
+        if(len(filename) == 0):
             return
-        filename = file_dialog_output[0]
+
         try:
             handle = open(filename, "r")
         except IOError:
-            reply = QtWidgets.QMessageBox.information(self, 'File Name',
+            reply = QtGui.QMessageBox.information(self, 'File Name',
                                                   ("Could not open file: %s" % filename),
-                                                  QtWidgets.QMessageBox.Ok)
+                                                  QtGui.QMessageBox.Ok)
             return
 
         csvhandle = csv.reader(handle, delimiter=",")

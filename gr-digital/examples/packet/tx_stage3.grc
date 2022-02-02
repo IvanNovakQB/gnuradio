@@ -41,13 +41,13 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 324.0]
+    coordinate: [360, 444.0]
     rotation: 0
     state: enabled
 - name: hdr_format
   id: variable_header_format_default
   parameters:
-    access_code: '''10101010111101010101'''
+    access_code: '''10101010111101010101111111111111111111111'''
     bps: bps
     comment: ''
     threshold: thresh
@@ -55,7 +55,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 206]
+    coordinate: [152, 356.0]
     rotation: 0
     state: enabled
 - name: thresh
@@ -67,7 +67,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [64, 324.0]
+    coordinate: [112, 500.0]
     rotation: 0
     state: enabled
 - name: blocks_message_debug_0
@@ -80,7 +80,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [920, 57]
+    coordinate: [1104, 56.0]
     rotation: 0
     state: enabled
 - name: blocks_message_strobe_0
@@ -97,9 +97,45 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 107]
+    coordinate: [88, 212.0]
     rotation: 0
     state: enabled
+- name: blocks_null_sink_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 456.0]
+    rotation: 0
+    state: true
+- name: blocks_null_source_0
+  id: blocks_null_source
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_source: '[[0,],]'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_outputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [704, 576.0]
+    rotation: 0
+    state: true
 - name: blocks_random_pdu_0
   id: blocks_random_pdu
   parameters:
@@ -109,16 +145,35 @@ blocks:
     length_modulo: '1'
     mask: '0xff'
     maxoutbuf: '0'
-    maxsize: '50'
+    maxsize: '2'
     minoutbuf: '0'
-    minsize: '15'
+    minsize: '2'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 91]
+    coordinate: [272, 36.0]
     rotation: 0
     state: enabled
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: '10000'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [752, 364.0]
+    rotation: 0
+    state: true
 - name: digital_crc32_async_bb_1
   id: digital_crc32_async_bb
   parameters:
@@ -132,9 +187,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [432, 115]
+    coordinate: [472, 244.0]
     rotation: 0
-    state: enabled
+    state: bypassed
 - name: digital_protocol_formatter_async_0
   id: digital_protocol_formatter_async
   parameters:
@@ -148,13 +203,15 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [616, 105]
+    coordinate: [640, 120.0]
     rotation: 0
     state: enabled
 
 connections:
 - [blocks_message_strobe_0, strobe, blocks_random_pdu_0, generate]
+- [blocks_null_source_0, '0', blocks_throttle_0, '0']
 - [blocks_random_pdu_0, pdus, digital_crc32_async_bb_1, in]
+- [blocks_throttle_0, '0', blocks_null_sink_0, '0']
 - [digital_crc32_async_bb_1, out, digital_protocol_formatter_async_0, in]
 - [digital_protocol_formatter_async_0, header, blocks_message_debug_0, print_pdu]
 - [digital_protocol_formatter_async_0, payload, blocks_message_debug_0, print_pdu]

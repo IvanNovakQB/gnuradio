@@ -17,6 +17,10 @@ parameters:
     dtype: bool
     default: 'False'
     hide: part
+-   id: key
+    label: Filter Key
+    dtype: string
+    default: ''
 
 outputs:
 -   domain: message
@@ -25,12 +29,12 @@ outputs:
 
 templates:
     imports: from gnuradio import zeromq
-    make: zeromq.sub_msg_source(${address}, ${timeout}, ${bind})
+    make: zeromq.sub_msg_source(${address}, ${timeout}, ${bind}, ${key})
 
 cpp_templates:
     includes: [ '#include <gnuradio/zeromq/sub_msg_source.h>' ]
     declarations: gr::zeromq::sub_msg_source::sptr ${id};
-    make: this->${id} = gr::zeromq::sub_msg_source::make(const_cast<char *>(${address}${'.c_str())' if str(address)[0] not in '"\'' else ')'}, ${timeout});
+    make: this->${id} = gr::zeromq::sub_msg_source::make(const_cast<char *>(${address}${'.c_str())' if str(address)[0] not in '"\'' else ')'}, ${timeout}, ${key});
     link: ['gnuradio::gnuradio-zeromq']      
 
 

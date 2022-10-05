@@ -19,18 +19,19 @@
 namespace gr {
 namespace zeromq {
 
-pub_msg_sink::sptr pub_msg_sink::make(char* address, int timeout, bool bind)
+pub_msg_sink::sptr pub_msg_sink::make(char* address, int timeout, bool bind, const std::string& key)
 {
-    return gnuradio::make_block_sptr<pub_msg_sink_impl>(address, timeout, bind);
+    return gnuradio::make_block_sptr<pub_msg_sink_impl>(address, timeout, bind, key);
 }
 
-pub_msg_sink_impl::pub_msg_sink_impl(char* address, int timeout, bool bind)
+pub_msg_sink_impl::pub_msg_sink_impl(char* address, int timeout, bool bind, const std::string& key)
     : gr::block("pub_msg_sink",
                 gr::io_signature::make(0, 0, 0),
                 gr::io_signature::make(0, 0, 0)),
       d_timeout(timeout),
       d_context(1),
-      d_socket(d_context, ZMQ_PUB)
+      d_socket(d_context, ZMQ_PUB),
+      d_key(key)
 {
     int major, minor, patch;
     zmq::version(&major, &minor, &patch);
@@ -56,6 +57,17 @@ pub_msg_sink_impl::~pub_msg_sink_impl() {}
 
 void pub_msg_sink_impl::handler(pmt::pmt_t msg)
 {
+        /* Send key if it exists */
+    if (!d_key.empty()) {
+        zmq::message_t key_message(d_key.size());
+        memcpy(key_message.data(), d_key.data(), d_key.size());
+#if USE_NEW_CPPZMQ_SEND_RECV
+        d_socket.send(key_message, zmq::send_flags::sndmore);
+#else
+        d_socket.send(key_message, ZMQ_SNDMORE);
+#endif
+    }
+
     std::stringbuf sb("");
     pmt::serialize(msg, sb);
     std::string s = sb.str();

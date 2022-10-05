@@ -23,9 +23,10 @@ private:
     float d_timeout;
     zmq::context_t d_context;
     zmq::socket_t d_socket;
+    const std::string d_key;
 
 public:
-    pub_msg_sink_impl(char* address, int timeout, bool bind);
+    pub_msg_sink_impl(char* address, int timeout, bool bind, const std::string& key);
     ~pub_msg_sink_impl() override;
 
     void handler(pmt::pmt_t msg);

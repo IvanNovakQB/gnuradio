@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(sub_msg_source.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(35c48e1b4d8719899d4142620ff7735d)                     */
+/* BINDTOOL_HEADER_FILE_HASH(a7b922ce64b4ec5540e59f086ccdc2fe)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -42,6 +42,7 @@ void bind_sub_msg_source(py::module& m)
              py::arg("address"),
              py::arg("timeout") = 100,
              py::arg("bind") = false,
+             py::arg("key") = "",
              D(sub_msg_source, make))
 
 

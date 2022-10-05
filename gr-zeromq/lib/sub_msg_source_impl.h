@@ -25,13 +25,14 @@ private:
     zmq::socket_t d_socket;
     std::unique_ptr<boost::thread> d_thread;
     const pmt::pmt_t d_port;
+    const std::string d_key;
 
     void readloop();
 
 public:
     bool d_finished;
 
-    sub_msg_source_impl(char* address, int timeout, bool bind);
+    sub_msg_source_impl(char* address, int timeout, bool bind, const std::string& key);
     ~sub_msg_source_impl() override;
 
     bool start() override;

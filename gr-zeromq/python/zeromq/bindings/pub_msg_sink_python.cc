@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(pub_msg_sink.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(4a82a90bb9c51ead63cf0d0ad4196287)                     */
+/* BINDTOOL_HEADER_FILE_HASH(b5b8c287cff77d6cb65a5096a7c45832)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -40,6 +40,7 @@ void bind_pub_msg_sink(py::module& m)
              py::arg("address"),
              py::arg("timeout") = 100,
              py::arg("bind") = true,
+             py::arg("key") = "",
              D(pub_msg_sink, make))
 
 

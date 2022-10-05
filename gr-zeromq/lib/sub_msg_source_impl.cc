@@ -22,19 +22,20 @@
 namespace gr {
 namespace zeromq {
 
-sub_msg_source::sptr sub_msg_source::make(char* address, int timeout, bool bind)
+sub_msg_source::sptr sub_msg_source::make(char* address, int timeout, bool bind, const std::string& key)
 {
-    return gnuradio::make_block_sptr<sub_msg_source_impl>(address, timeout, bind);
+    return gnuradio::make_block_sptr<sub_msg_source_impl>(address, timeout, bind, key);
 }
 
-sub_msg_source_impl::sub_msg_source_impl(char* address, int timeout, bool bind)
+sub_msg_source_impl::sub_msg_source_impl(char* address, int timeout, bool bind, const std::string& key)
     : gr::block("sub_msg_source",
                 gr::io_signature::make(0, 0, 0),
                 gr::io_signature::make(0, 0, 0)),
       d_timeout(timeout),
       d_context(1),
       d_socket(d_context, ZMQ_SUB),
-      d_port(pmt::mp("out"))
+      d_port(pmt::mp("out")),
+      d_key(key)
 {
     int major, minor, patch;
     zmq::version(&major, &minor, &patch);
@@ -42,9 +43,7 @@ sub_msg_source_impl::sub_msg_source_impl(char* address, int timeout, bool bind)
     if (major < 3) {
         d_timeout = timeout * 1000;
     }
-
-    d_socket.setsockopt(ZMQ_SUBSCRIBE, "", 0);
-
+    d_socket.setsockopt(ZMQ_SUBSCRIBE, key.c_str(), key.length());
     if (bind) {
         d_socket.bind(address);
     } else {
@@ -81,6 +80,11 @@ void sub_msg_source_impl::readloop()
         //  If we got a reply, process
         if (items[0].revents & ZMQ_POLLIN) {
 
+            /* Is this the start or continuation of a multi-part message? */
+            int64_t more = 0;
+            size_t more_len = sizeof(more);
+            d_socket.getsockopt(ZMQ_RCVMORE, &more, &more_len);
+
             // Receive data
             zmq::message_t msg;
 #if USE_NEW_CPPZMQ_SEND_RECV
@@ -94,7 +98,28 @@ void sub_msg_source_impl::readloop()
                 std::this_thread::sleep_for(100us);
                 continue;
             }
+            /* Throw away key and get the first message. Avoid blocking if a multi-part
+             * message is not sent */
+            if (!d_key.empty() && !more) {
+                int64_t is_multipart;
+                d_socket.getsockopt(ZMQ_RCVMORE, &is_multipart, &more_len);
 
+                msg.rebuild();
+                if (is_multipart) {
+#if USE_NEW_CPPZMQ_SEND_RECV
+                    const bool multi_ok = bool(d_socket.recv(msg));
+#else
+                    const bool multi_ok = d_socket.recv(&msg);
+#endif
+                    if (!multi_ok) {
+                        GR_LOG_ERROR(d_logger, "Failure to receive multi-part message.");
+                        std::this_thread::sleep_for(100us);
+                        continue;
+                    }
+                } else {
+                    std::this_thread::sleep_for(100us);
+                }
+            }
             std::string buf(static_cast<char*>(msg.data()), msg.size());
             std::stringbuf sb(buf);
             try {
